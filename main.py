@@ -60,7 +60,7 @@ def createLog(level, testType):
     else:
         message = f"{errorLevel} test"
 
-    query = f"?request=LOGTEST&timeStamp={timeStamp}&errorLevel={errorLevel}&message={message}&local_ip={local_ip}" \
+    query = f"?request=LOGGING&errorLevel={errorLevel}&message={message}&local_ip={local_ip}" \
             f"&hostname={hostname}"
     socketConnection(bytes(query, "utf-8"))
 
