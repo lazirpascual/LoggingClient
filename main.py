@@ -4,6 +4,8 @@ from asyncio.windows_events import NULL
 import socket
 from datetime import datetime
 from configparser import ConfigParser
+import time
+import os
 
 configuration = ConfigParser()
 configuration.read('config.ini')
@@ -23,7 +25,7 @@ def socketConnection(queryString):
 
 choice = True
 timeStamp = datetime.now().strftime("%m/%d/%Y %H:%M:%S")
-errorLevel = ""
+
 
 
 def createLog(level, testType):
@@ -46,17 +48,20 @@ def createLog(level, testType):
     elif level == 4:
         errorLevel = "FATAL"
     else:
-        errorLevel = ""
+        errorLevel = "INVALID"
         print("ERROR: Invalid selection")
 
     hostname = socket.gethostname()
     local_ip = socket.gethostbyname(hostname)
 
-    if testType == "MANUAL":
+    if testType == "MANUAL" and errorLevel != "INVALID":
         message = input("Enter log details\n")
+    elif errorLevel == "INVALID":
+        message = "Invalid selection from the menu"
     else:
         message = f"{errorLevel} test"
-    query = f"?request=LOGTEST&timeStamp={timeStamp}&errorLevel={errorLevel}&message={message}&local_ip={local_ip}&hostname={hostname}"
+    query = f"?request=LOGTEST&timeStamp={timeStamp}&errorLevel={errorLevel}&message={message}&local_ip={local_ip}" \
+            f"&hostname={hostname}"
     socketConnection(bytes(query, "utf-8"))
 
 
@@ -71,10 +76,25 @@ while choice:
     if choice == "1":
         createLog(NULL, "MANUAL")
     elif choice == "2":
+
+        print("Testing with INFO level message")
         createLog(1, "AUTOMATED")
+        time.sleep(1)
+
+        print("\n\nTesting with WARNING level message")
         createLog(2, "AUTOMATED")
+        time.sleep(1)
+
+        print("\n\nTesting with ERROR level message")
         createLog(3, "AUTOMATED")
+        time.sleep(1)
+
+        print("\n\nTesting with FATAL level message")
         createLog(4, "AUTOMATED")
+        time.sleep(1)
+        print("\n\nTesting with INVALID selection")
+        createLog(5, "AUTOMATED")
+        time.sleep(1)
     elif choice == "3":
         print("\n ")
     elif choice == "4":
