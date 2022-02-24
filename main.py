@@ -45,9 +45,12 @@ def createLog():
         errorLevel = ""
         print("ERROR: Invalid selection")
 
+    hostname = socket.gethostname()
+    local_ip = socket.gethostbyname(hostname)
     message = input("Enter log details\n")
-    query = f"?request=LOGTEST&timeStamp={timeStamp}&errorLevel={errorLevel}&message={message}"
+    query = f"?request=LOGTEST&timeStamp={timeStamp}&errorLevel={errorLevel}&message={message}&local_ip={local_ip}&hostname{hostname}"
     socketConnection(bytes(query, "utf-8"))
+    # print(query)
 
 
 while choice:
