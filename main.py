@@ -12,11 +12,11 @@ def socketConnection(queryString):
         s.connect((HOST, PORT))
         s.sendall(queryString)
         data = s.recv(1024)
-        print(f"Received {data!r}")
+        print(f"{data!r}")
 
 
 choice = True
-timeStamp = datetime.now().strftime("%m/%d/%Y,%H:%M:%S")
+timeStamp = datetime.now().strftime("%m/%d/%Y %H:%M:%S")
 errorLevel = ""
 
 
@@ -31,26 +31,22 @@ def createLog():
 
     if level == "1":
         errorLevel = "INFO"
-        # print(errorLevel)
     elif level == "2":
         errorLevel = "WARNING"
-        # print(errorLevel)
     elif level == "3":
         errorLevel = "ERROR"
-        # print(errorLevel)
     elif level == "4":
         errorLevel = "FATAL"
-        # print(errorLevel)
     else:
+        1
         errorLevel = ""
         print("ERROR: Invalid selection")
 
     hostname = socket.gethostname()
     local_ip = socket.gethostbyname(hostname)
     message = input("Enter log details\n")
-    query = f"?request=LOGTEST&timeStamp={timeStamp}&errorLevel={errorLevel}&message={message}&local_ip={local_ip}&hostname{hostname}"
+    query = f"?request=LOGTEST&timeStamp={timeStamp}&errorLevel={errorLevel}&message={message}&local_ip={local_ip}&hostname={hostname}"
     socketConnection(bytes(query, "utf-8"))
-    # print(query)
 
 
 while choice:
