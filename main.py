@@ -1,5 +1,6 @@
 # echo-client.py
 
+from asyncio.windows_events import NULL
 import socket
 from datetime import datetime
 from configparser import ConfigParser
@@ -14,7 +15,7 @@ PORT = configuration['Address']['PORT']
 
 def socketConnection(queryString):
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-        s.connect((HOST, PORT))
+        s.connect((HOST, int(PORT)))
         s.sendall(queryString)
         data = s.recv(1024)
         print(f"{data!r}")
@@ -27,7 +28,7 @@ errorLevel = ""
 
 def createLog(level, testType):
 
-    if testType == 1:
+    if testType == "MANUAL":
         print("""
         1. INFO
         2. WARNING
@@ -51,7 +52,7 @@ def createLog(level, testType):
     hostname = socket.gethostname()
     local_ip = socket.gethostbyname(hostname)
 
-    if testType == 1:
+    if testType == "MANUAL":
         message = input("Enter log details\n")
     else:
         message = f"{errorLevel} test"
@@ -64,22 +65,19 @@ while choice:
     1. Test Logging Service
     2. Automated Test
     3. Abuse Test
-    4. Change Log Format
-    5. Exit/Quit
+    4. Exit/Quit
     """)
     choice = input("What would you like to do? ")
     if choice == "1":
-        createLog(1, 1)
+        createLog(NULL, "MANUAL")
     elif choice == "2":
-        createLog(1, 2)
-        createLog(2, 2)
-        createLog(3, 2)
-        createLog(4, 2)
+        createLog(1, "AUTOMATED")
+        createLog(2, "AUTOMATED")
+        createLog(3, "AUTOMATED")
+        createLog(4, "AUTOMATED")
     elif choice == "3":
         print("\n ")
     elif choice == "4":
-        print("\n ")
-    elif choice == "5":
         print("\n Goodbye")
         choice = False
     elif choice != "":
