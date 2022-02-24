@@ -20,31 +20,36 @@ timeStamp = datetime.now().strftime("%m/%d/%Y %H:%M:%S")
 errorLevel = ""
 
 
-def createLog():
-    print("""
+def createLog(level, testType):
+
+    if testType == 1:
+        print("""
         1. INFO
         2. WARNING
         3. ERROR
         4. FATAL
         """)
-    level = input("Please select your log level ")
+        level = int(input("Please select your log level "))
 
-    if level == "1":
+    if level == 1:
         errorLevel = "INFO"
-    elif level == "2":
+    elif level == 2:
         errorLevel = "WARNING"
-    elif level == "3":
+    elif level == 3:
         errorLevel = "ERROR"
-    elif level == "4":
+    elif level == 4:
         errorLevel = "FATAL"
     else:
-        1
         errorLevel = ""
         print("ERROR: Invalid selection")
 
     hostname = socket.gethostname()
     local_ip = socket.gethostbyname(hostname)
-    message = input("Enter log details\n")
+
+    if testType == 1:
+        message = input("Enter log details\n")
+    else:
+        message = f"{errorLevel} test"
     query = f"?request=LOGTEST&timeStamp={timeStamp}&errorLevel={errorLevel}&message={message}&local_ip={local_ip}&hostname={hostname}"
     socketConnection(bytes(query, "utf-8"))
 
@@ -59,9 +64,12 @@ while choice:
     """)
     choice = input("What would you like to do? ")
     if choice == "1":
-        createLog()
+        createLog(1, 1)
     elif choice == "2":
-        print("\n ")
+        createLog(1, 2)
+        createLog(2, 2)
+        createLog(3, 2)
+        createLog(4, 2)
     elif choice == "3":
         print("\n ")
     elif choice == "4":
