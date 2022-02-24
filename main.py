@@ -27,7 +27,6 @@ choice = True
 timeStamp = datetime.now().strftime("%m/%d/%Y %H:%M:%S")
 
 
-
 def createLog(level, testType):
 
     if testType == "MANUAL":
@@ -60,6 +59,7 @@ def createLog(level, testType):
         message = "Invalid selection from the menu"
     else:
         message = f"{errorLevel} test"
+
     query = f"?request=LOGTEST&timeStamp={timeStamp}&errorLevel={errorLevel}&message={message}&local_ip={local_ip}" \
             f"&hostname={hostname}"
     socketConnection(bytes(query, "utf-8"))
@@ -76,7 +76,6 @@ while choice:
     if choice == "1":
         createLog(NULL, "MANUAL")
     elif choice == "2":
-
         print("Testing with INFO level message")
         createLog(1, "AUTOMATED")
         time.sleep(1)
@@ -92,6 +91,7 @@ while choice:
         print("\n\nTesting with FATAL level message")
         createLog(4, "AUTOMATED")
         time.sleep(1)
+
         print("\n\nTesting with INVALID selection")
         createLog(5, "AUTOMATED")
         time.sleep(1)
