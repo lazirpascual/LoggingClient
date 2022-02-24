@@ -2,9 +2,14 @@
 
 import socket
 from datetime import datetime
+from configparser import ConfigParser
 
-HOST = "127.0.0.1"  # The server's hostname or IP address
-PORT = 13000  # The port used by the server
+configuration = ConfigParser()
+configuration.read('config.ini')
+
+
+HOST = configuration['Address']['IP_address']
+PORT = configuration['Address']['PORT']
 
 
 def socketConnection(queryString):
