@@ -58,7 +58,7 @@ def createLog(level, testType):
     elif errorLevel == "INVALID":
         message = "Invalid selection from the menu"
     else:
-        message = f"{errorLevel} test"
+        message = f"Testing {errorLevel} Log Level"
 
     query = f"?request=LOGGING&errorLevel={errorLevel}&message={message}&local_ip={local_ip}" \
             f"&hostname={hostname}"
@@ -96,6 +96,24 @@ while choice:
         createLog(5, "AUTOMATED")
         time.sleep(1)
     elif choice == "3":
+        for i in range(0, 30):
+            createLog(1, "AUTOMATED")
+            time.sleep(0.1)
+
+        print("Waiting for 10 seconds...")
+        time.sleep(10)
+
+        for i in range(0, 40):
+            createLog(1, "AUTOMATED")
+            time.sleep(0.1)
+
+        print("Waiting for 10 seconds...")
+        time.sleep(10)
+
+        for i in range(0, 30):
+            createLog(1, "AUTOMATED")
+            time.sleep(0.1)
+
         print("\n ")
     elif choice == "4":
         print("\n Goodbye")
