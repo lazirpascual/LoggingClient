@@ -1,4 +1,13 @@
-# echo-client.py
+
+'''
+FILE                : main.py
+PROJECT			    : A3 - Network Application Development
+PROGRAMMER		    : Lazir Pascual, Rohullah Noory
+FIRST VERSION       : 2/15/2022
+DESCRIPTION		    : This file contains the source code for the test client of the logging service.
+
+'''
+
 
 from asyncio.windows_events import NULL
 import socket
@@ -14,7 +23,12 @@ configuration.read('config.ini')
 HOST = configuration['Address']['IP_address']
 PORT = configuration['Address']['PORT']
 
-
+"""  -- Function Header
+    Name	:	socketConnection()
+    Purpose :	This method is used to establish a connection to the server and send/receive data
+    Inputs	:	string queryString - query string that is to be sent to the server
+    Returns	:	none
+"""
 def socketConnection(queryString):
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         s.connect((HOST, int(PORT)))
@@ -26,7 +40,12 @@ def socketConnection(queryString):
 choice = True
 timeStamp = datetime.now().strftime("%m/%d/%Y %H:%M:%S")
 
-
+"""  -- Function Header
+    Name	:	createLog()
+    Purpose :	This method is used to build the query string, that will be sent to the server for processing, based on user selections
+    Inputs	:	level - log level selected, testType - what type of test the user wants to run.
+    Returns	:	none
+"""
 def createLog(level, testType):
 
     if testType == "MANUAL":
@@ -65,6 +84,7 @@ def createLog(level, testType):
     socketConnection(bytes(query, "utf-8"))
 
 
+# Continuously asking user to select a test type from a menue
 while choice:
     print("""
     1. Test Logging Service
