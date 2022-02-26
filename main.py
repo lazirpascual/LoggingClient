@@ -92,36 +92,36 @@ while choice:
     3. Abuse Test
     4. Exit/Quit
     """)
-    choice = input("What would you like to do? ")
+    choice = input("How would you like to test the logging service? ")
     if choice == "1":
         createLog(NULL, "MANUAL")
     elif choice == "2":
         print("Testing with INFO level message")
         createLog(1, "AUTOMATED")
-        time.sleep(1)
+        time.sleep(0.5)
 
         print("\n\nTesting with WARNING level message")
         createLog(2, "AUTOMATED")
-        time.sleep(1)
+        time.sleep(0.5)
 
         print("\n\nTesting with ERROR level message")
         createLog(3, "AUTOMATED")
-        time.sleep(1)
+        time.sleep(0.5)
 
         print("\n\nTesting with FATAL level message")
         createLog(4, "AUTOMATED")
-        time.sleep(1)
+        time.sleep(0.5)
 
         print("\n\nTesting with INVALID selection")
         createLog(5, "AUTOMATED")
-        time.sleep(1)
+        time.sleep(0.5)
     elif choice == "3":
         for i in range(0, 100):
             createLog(1, "AUTOMATED")
             time.sleep(0.1)
         print("\n ")
     elif choice == "4":
-        print("\n Goodbye")
+        print("\nGoodbye")
         choice = False
     elif choice != "":
         print("\n Not Valid Choice Try again")
