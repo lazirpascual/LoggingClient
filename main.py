@@ -29,6 +29,8 @@ PORT = configuration['Address']['PORT']
     Inputs	:	string queryString - query string that is to be sent to the server
     Returns	:	none
 """
+
+
 def socketConnection(queryString):
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         s.connect((HOST, int(PORT)))
@@ -46,6 +48,8 @@ timeStamp = datetime.now().strftime("%m/%d/%Y %H:%M:%S")
     Inputs	:	level - log level selected, testType - what type of test the user wants to run.
     Returns	:	none
 """
+
+
 def createLog(level, testType):
 
     if testType == "MANUAL":
@@ -116,7 +120,7 @@ while choice:
         createLog(5, "AUTOMATED")
         time.sleep(0.5)
     elif choice == "3":
-        for i in range(0, 100):
+        for i in range(0, 120):
             createLog(1, "AUTOMATED")
             time.sleep(0.1)
         print("\n ")
